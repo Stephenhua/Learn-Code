@@ -50,7 +50,5 @@ public:
         search(board,word,index+1,i,j+1);
         vistied[i][j]=false;
         return res;
-
-
     }
 };
