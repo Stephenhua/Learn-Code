@@ -79,9 +79,10 @@ public:
              if(cur==nullptr){
                  pre->left->next=pre->next;
 
-                 pre=start->left;
-                 cur=start->right;
-                 start=pre;
+                 pre  = start->left;
+                 cur  = start->right;
+                 start= pre;
+
              }else{
                  pre->left->next=pre->right;
                  pre->right->next=cur->left;
@@ -117,6 +118,36 @@ public:
           }
 
       }
+
+      Node* connect4(Node* root) {
+          if(root==nullptr){
+              return root;
+          }
+
+          queue<Node*> temp_queue;
+          temp_queue.push(root);
+          while(!temp_queue.empty()){
+              Node *cur=nullptr;
+              int size=temp_queue.size();
+              for(int i=0;i<size;i++){
+                  Node* temp=temp_queue.front();
+                  temp_queue.pop();
+                  if(i>0){
+                      temp->next=cur;
+                  }
+                  cur=pre->next;
+                  if(cur->left!=nullptr){
+                      temp_queue.push(cur->left);
+                  }
+                  if(cur->right!=nullptr){
+                      temp_queue.push(cur->right);
+                  }
+              }
+          }
+          return root;
+      }
+
+
 };
 
 
