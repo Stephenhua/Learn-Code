@@ -33,7 +33,7 @@ public:
 };
 
 
-//方法二：采用递归的形式进行
+//方法二：采用深度搜索形式进行
 class Solution {
 public:
     int maxValue;
@@ -55,5 +55,25 @@ public:
         maxValue = max(maxValue, left + right + node->val);
         //将有效路径的值存起来
         return max(left, right) + node->val;
+    }
+};
+
+
+//方法三：依旧采用深度搜索的形式进行
+class Solution {
+public:
+    int result = 0;
+    int helper(TreeNode * root) {
+        if (root == nullptr)
+            return 0;
+        int leftVal = helper(root->left);
+        int rightVal = helper(root->right);
+        result = max(result, max(root->val, max(max(root->val + leftVal, root->val + rightVal), root->val + leftVal + rightVal)));
+        return max(max(root->val + leftVal, root->val + rightVal), root->val);
+    }
+    int maxPathSum(TreeNode* root) {
+        result = root->val;
+        helper(root);
+        return result;
     }
 };

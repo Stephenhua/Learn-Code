@@ -90,3 +90,84 @@ public:
         }
     }
 };
+
+
+//解法三：采用非递归的形式进行计算求解，记录每一次遍历过的位置，用stack进行记录，由于其为先进后厨的特点，而位置定义一个内部类pos进行标记横坐标和总做表
+//在写非递归的时候，每次查看stack顶，但不不弹出stack栈，知道这个位置上下左右都搜索不出Stack;
+
+class Solution {
+public:
+struct Pos
+{
+    int i;
+    int j;
+    Pos(int i,int j){
+        this->i=i;
+        this->j=j;
+    }
+    /* data */
+};
+
+     void dfs(vector<vector<char>>& board,int i,int j){
+
+         stack<Pos*> temp_stack;
+         temp_stack.push(board[i][j]);
+         board[i][j]='#';
+         while(!temp_stack.empty()){
+             Pos * current=temp_stack.top();
+             if(current->i-1>=0&&board[current->i-1][current->j]=='O'){
+                 temp_stack.push(board[current->i-1][current->j]);
+                 board[current->i-1][current->j]='#';
+                 continue;
+             }
+             if(current->i+1<=board.size()-1&&board[current->i+1][current->j]=='O'){
+                 temp_stack.push(board[current->i+1][current->j]);
+                 board[current->i+1][current->j]='#';
+                 continue;
+             }
+             if(current->j-1>=0&&board[current->i][current->j-1]=='O'){
+                 temp_stack.push(board[current->i][current->j-1]);
+                 board[current->i][current->j-1]='#';
+                 continue;
+             }
+             if(current->j+1<=board[0].size()-1 && board[current->i][current->j+1]=='O'){
+                 temp_stack.push(board[current->i][current->j+1]);
+                 board[current->i][current->j+1]='#';
+                 continue;
+             }
+             return temp_stack.pop();
+         }
+     }
+    void slove(vector<vector<char>>& board){
+    if(board=nullptr ||board.length()==0){
+        return ;
+    }
+
+    int m=board.size();
+    int n=board[0].size();
+
+    for(int i=0;i<m;i++){
+        for(int j=0;j<n;j++){
+            bool isEdge= (i==0)||(i==m-1)||(j==0)||(j==n-1);
+            if(isEdge && board[i][j]=='0'){
+                dfs(board,i,j);
+            }
+        }
+    }
+
+    for(int i=0;i<m;i++){
+        for(int j=0;j<n;j++){
+            if(board[i][j]=='O'){
+                board[i][j]='X';
+            }
+
+            if(board[i][j]='#'){
+                board[i][j]='O';
+            }
+        }
+    }
+}
+
+
+
+};

@@ -171,7 +171,6 @@ bool CheckEdge(int x,int y) // 边界条件和约束条件的判断
 void dfs(int x,int y)
 {
     vst[x][y]=1; // 标记该节点被访问过
-    
     if(map[x][y]==G) // 出现目标态G
     {
         ...... // 做相应处理
