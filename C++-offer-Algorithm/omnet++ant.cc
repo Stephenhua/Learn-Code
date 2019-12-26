@@ -2621,7 +2621,8 @@ void AntNet::handleMessage(cMessage *msg)
           }
 
     //delete msg; //needed just one time, or not if cancel, delete process ?
-    return;}
+    return;
+    }
 
     Packet *pk = check_and_cast<Packet *>(msg);
     if (pk->getSrcAddr() != myAddress) { // Packet coming from outside, to skip packets from App layer
@@ -2808,41 +2809,7 @@ void AntNet::handleMessage(cMessage *msg)
        delete pk;
        return;
        }
-//        if (pk->getTransientNodesArraySize() == 2) { // Pheromone diffusion packets , old branch
-//            EV << "Pheromone diffusion packet: "<< pk->getName()<< " received" << endl;
-//            // got new best hops estimation to dest on the origin gate
-//            int originGateId = pk->getArrivalGateId();
-//            int origin = gate(originGateId)->getIndex();
-//            int bestHops = pk->getHopCount(); int dest= pk->getDestAddr();
-//            if (bestHops == htable[dest] [origin]) { // hops estimation table already with good value
-//                EV << "Hops estimation table already with good value: " << bestHops << " hops, ending pheromone diffusion now"<< endl;
-//                emit(dropSignal, (long)pk->getByteLength());
-//                delete pk;
-//                return;
-//            } else { // different value, need to update to new estimation
-//                // check 1st if bestHops ==1 (means is unknown) so reset hops estimation value (unknown)
-//                if (bestHops == 1){
-//                    updateHTable(dest,origin,0);
-//                    updateRPTable(dest,origin,0,0); // restet pheromone value
-//                }
-//                else updateHTable(dest,origin,bestHops);
-//                // check if continue diffusion
-//                RoutingTable temp;
-//                if (((bestHopsEstimation(dest) == bestHops) && (bestHopsEstimationChoices(temp,dest,NULL) == 1)) ||
-//                     ((bestHops == 1) && (bestHopsEstimation(dest)==0))   ) { // if only best estimation choice is the new one
-//                                                                       // or best estimation is like new one and is 0 (1 for new)
-//                    if (bestHops == 1) pheromoneDiffusion(dest,bestHops,origin); // new diffusion to neighbours but no origin gate
-//                    else pheromoneDiffusion(dest,bestHops++,origin);
-//                    emit(dropSignal, (long)pk->getByteLength());
-//                    temp.clear();
-//                    delete pk;
-//                    return;
-//                }
-//
-//            }
-//            showRoutingInfo(dest);
-//            return;
-//        }
+
         if (pk->getDestAddr() == pk->getSrcAddr() ) {
 
             // hello msg, locate neighbour
@@ -2865,7 +2832,8 @@ void AntNet::handleMessage(cMessage *msg)
             emit(outputIfSignal, origin);
             send(pk, "out", origin);
             return;
-        } else {
+        } 
+        else {
             // update neighbour table
             int originGateId = pk->getArrivalGateId();
             int origin = gate(originGateId)->getIndex();
@@ -4039,7 +4007,7 @@ void AntNet::handleMessage(cMessage *msg)
             send(pk, "out", outGateIndex);
             }
         if ((pk->getKind() == 2) || (pk->getKind()==5) ) // RREQ packet
-                            {
+             {
             int k = pk->getHopCount();
             if (k == maxHops)
                     {
