@@ -58,7 +58,7 @@ public:
     }
 };
 
-
+//广度优先
 class Solution {
     private:
     map<Node*, Node*> copies;

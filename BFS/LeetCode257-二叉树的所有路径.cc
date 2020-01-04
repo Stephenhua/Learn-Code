@@ -28,6 +28,7 @@ public:
         }
 
         path= to_string(root->val);
+
         //不是叶子节点
         if(root->left!=nullptr){
             leftPath=binaryTreePaths(root->left);
@@ -42,6 +43,36 @@ public:
         }
         return re;
 
+        
+    }
+};
+
+
+class Solution {
+private:
+    vector<string> ret;
+    string temp;
+public:
+    vector<string> binaryTreePaths(TreeNode* root) {
+        if (!root) return ret;
+        
+        helper(root, temp);
+        
+        return ret;
+    }
+    
+    void helper(TreeNode* root, string t) {
+        if (!root) return;
+        
+        if (t.size() != 0) t += "->";
+        
+        t += to_string(root->val);
+        
+        if (root->left == NULL && root->right == NULL)
+            ret.push_back(t);
+        
+        helper(root->left, t);
+        helper(root->right, t);
         
     }
 };
