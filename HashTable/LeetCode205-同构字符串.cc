@@ -8,7 +8,7 @@
 using namespace std;
 
 
-/*解法一：
+/*解法一：交叉映射
 采取哈希映射的方式，其实此题就是一道典型的哈希映射题，比如对于tit和pap，对于所有的t所对应的就是p，所有的i就是对应的a.
 正好map的数据结构可以满足我们的这种映射要求。我们只需要每遍历一位，就去map中寻找 该字母是否有对应值（映射），
 如果有就去查该映射的值是否与另一个字符串中对应位字母相同，如果不同就不是同构字符串，
@@ -40,4 +40,27 @@ public:
         
         return true;
     }
+};
+
+/*
+采用比较的方法进行比较,他们的字母的个数一定是相同的；
+*/
+
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        int ms[256]={0};
+        int mt[256]={0};
+
+        int n=s.size();
+        for(int i=0;i<n;i++){
+            if(ms[s[i]]!=mt[t[i]]){
+                return false;
+            }
+            ms[s[i]]=i+1;
+            mt[t[i]]=i+1;
+        }
+
+    }
+
 };

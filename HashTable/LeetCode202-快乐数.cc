@@ -32,3 +32,28 @@ public:
     }
 
 };
+
+//方法二：采用循环的方式进行求解
+
+class Solution {
+public:
+     int  bitSquareSum(int n){
+         unordered_set<int> seen;
+         while(n!=1){
+             int current=n;
+             int sum=0;
+             while(current!=0){
+                 sum+=(current%10)*(current%10);
+                 current=current/10;
+             }
+             if(seen.find(n)!=seen.end()){
+                 return false;
+             }
+
+             seen.insert(n);
+             n=sum;
+         }
+         return true;
+
+     }
+};

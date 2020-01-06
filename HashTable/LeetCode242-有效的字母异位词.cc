@@ -30,3 +30,28 @@ public:
 
     }
 };
+
+
+//方法二：一次遍历的形式
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        if(s.size()!=t.size()){
+            return false;
+        }
+
+        vector<int> countMap(26,0);
+        for(auto a:s){
+            countMap[a-'a']+=1;
+        }
+        for(auto b:t){
+            if(countMap[b-'a']==0){
+                return false;
+            }
+            countMap[b-'a']-=1;
+        }
+
+        return true;
+
+    }
+};
