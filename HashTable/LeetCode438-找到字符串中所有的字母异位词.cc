@@ -139,6 +139,51 @@ vector<int> findAnagrams(string s, string t) {
         
     }
     return res;
-
-
 }
+
+
+//方法三：无重复字符的最长字串
+//我们要求的是最长子串，所以需要在每次移动 right 增大窗口时更新 res，而不是像之前的题目在移动 left 缩小窗口时更新 res。
+
+int lengthOfLongestSubstring(string s) {
+    int left=0;
+    int right=0;
+    unordered_map<char,int> windows;
+    int res=0;
+    while(right<s.size()){
+        char c1=s[right];
+        windows[c1]++;
+        right++;
+        while(windows[c1]>1){
+            char c2= s[left];
+            windows[c2]--;
+            left++;
+        }
+
+        res=max(res,right-left);
+    }
+
+    return res;
+}
+
+//滑动窗口算法的抽象思想：
+
+class MoveWindow{
+    void movewindows(string s ){
+        unordered_map<char ,int> temp_windows;
+        int left=0;
+        int right=0;
+        while(right<s.size()){
+            char c1=s[right];
+            temp_windows[c1]++;
+            while(vaild )//实时进行更新条件,只需要对其进行更新即可以实现；
+            {
+                temp_windows[c1]--;
+                left++;
+            }
+
+
+        }
+    }
+
+};

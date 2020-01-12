@@ -67,6 +67,7 @@ public:
             pairs+=a[i]/2+A[i]/2;
             signals+=a[i]%2+A[i]%2;
         }
+        
         return pairs*2+(signals>0?1:0);
     }
 };
